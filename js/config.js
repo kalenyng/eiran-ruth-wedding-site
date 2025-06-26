@@ -16,11 +16,18 @@ async function fetchPhotoEntries() {
     return (data.values || []).map(([link, caption]) => ({ link, caption }));
 }
 
-function toImageURL(driveLink) {
-    const cleanLink = driveLink.split('&')[0]; // Remove trailing junk
-    const match = cleanLink.match(/id=([a-zA-Z0-9_-]+)/);
-    return match ? `https://drive.google.com/uc?id=${match[1]}` : null;
+function toImageURL(link) {
+    if (!link) return null;
+
+    // grab the file-id whether link is …open?id=… or …/d/FILE_ID/
+    const id =
+        link.match(/\/d\/([a-zA-Z0-9_-]{25,})/)?.[1] ||
+        link.match(/[?&]id=([a-zA-Z0-9_-]{25,})/)?.[1];
+
+    // export=view tells Drive to serve the file inline
+    return id ? `https://drive.google.com/uc?export=view&id=${id}` : null;
 }
+
 
 async function renderGallery() {
     const gallery = document.getElementById('gallery');
