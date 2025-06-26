@@ -10,13 +10,20 @@ document.addEventListener('DOMContentLoaded', () => {
         return m ? `https://drive.google.com/uc?export=view&id=${m[1]}` : null;
     };
 
-    async function fetchRows() {
-        const endpoint = `https://sheets.googleapis.com/v4/spreadsheets/${SHEET_ID}/values/${RANGE}?key=${API_KEY}`;
-        const r = await fetch(endpoint);
-        if (!r.ok) throw new Error('Sheets API error');
-        const j = await r.json();
-        return (j.values || []).map(([link, caption]) => ({ link, caption }));
+    async function fetchPhotoEntries() {
+        const url = `https://sheets.googleapis.com/v4/spreadsheets/${SHEET_ID}/values/${RANGE}?key=${API_KEY}`;
+        const res = await fetch(url);
+        const data = await res.json();
+
+        console.log('Google Sheets response:', data); // 👈 Add this line
+
+        if (data.error) {
+            throw new Error('Sheets API error: ' + data.error.message);
+        }
+
+        return (data.values || []).map(([link, caption]) => ({ link, caption }));
     }
+
 
     /* ---------- Render ---------- */
     async function renderGallery() {
