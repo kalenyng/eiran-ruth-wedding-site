@@ -21,11 +21,11 @@ function toImageURL(driveLink) {
 
     // 1) Matches: https://drive.google.com/file/d/FILE_ID/view?usp=drive_link
     let match = driveLink.match(/\/d\/([^/]+)\//);
-    if (match) return `https://drive.google.com/uc?export=view&id=${match[1]}`;
+    if (match) return `https://drive.google.com/uc?export=view&id=${match[0]}`;
 
     // 2) Matches: https://drive.google.com/open?id=FILE_ID
     match = driveLink.match(/[?&]id=([^&]+)/);
-    if (match) return `https://drive.google.com/uc?export=view&id=${match[1]}`;
+    if (match) return `https://drive.google.com/uc?export=view&id=${match[0]}`;
 
     return null; // unsupported format
 }
