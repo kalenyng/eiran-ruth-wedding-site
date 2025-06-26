@@ -1,57 +1,59 @@
 const SHEET_ID = '1oPB6ckeaknkhNXiRgZv_3hWtEAsGnkyJ1ewSrIPp1Vs';
-const RANGE = encodeURIComponent("'Form Responses 1'!B2:C");
-const API_KEY = 'AIzaSyC5JxQdHdu9tWEw9Nefeb12k6RwZ2vPZAA'; // Replace this!
+const RANGE    = encodeURIComponent("'Form Responses 1'!B2:C");
+const API_KEY  = 'AIzaSyC5JxQdHdu9tWEw9Nefeb12k6RwZ2vPZAA';
 
+/* 1️⃣  unchanged – get rows */
 async function fetchPhotoEntries() {
     const url = `https://sheets.googleapis.com/v4/spreadsheets/${SHEET_ID}/values/${RANGE}?key=${API_KEY}`;
     const res = await fetch(url);
     const data = await res.json();
-
-    console.log('Google Sheets response:', data);
-
-    if (data.error) {
-        throw new Error('Sheets API error: ' + data.error.message);
-    }
-
+    if (data.error) throw new Error('Sheets API error: ' + data.error.message);
     return (data.values || []).map(([link, caption]) => ({ link, caption }));
 }
 
-function toImageURL(link) {
+/* 2️⃣  return Drive *preview* link for iframe */
+function toPreviewURL(driveLink){
+    // works for …/file/d/FILE_ID/…  or …open?id=FILE_ID…
     const id =
-        link.match(/\/d\/([a-zA-Z0-9_-]{25,})/)?.[1] ||
-        link.match(/[?&]id=([a-zA-Z0-9_-]{25,})/)?.[1];
-    return id ? `https://drive.google.com/uc?export=view&id=${id}` : null;
+        driveLink.match(/\/d\/([a-zA-Z0-9_-]{25,})/)?.[1] ||
+        driveLink.match(/[?&]id=([a-zA-Z0-9_-]{25,})/)?.[1];
+    return id ? `https://drive.google.com/file/d/${id}/preview` : null;
 }
 
-async function renderGallery() {
+async function renderGallery(){
     const gallery = document.getElementById('gallery');
-    const entries = await fetchPhotoEntries(); // ✅ FIXED NAME HERE
+    const entries = await fetchPhotoEntries();
 
-    entries.forEach(({ link, caption }) => {
-        const imgSrc = toImageURL(link);
-        if (!imgSrc) return;
+    entries.forEach(({ link, caption })=>{
+        const src = toPreviewURL(link);
+        if (!src) return;
 
-        const wrapper = document.createElement('div');
-        wrapper.className = 'photo-card';
-        wrapper.style.textAlign = 'center';
+        /* 3️⃣  create iframe instead of img */
+        const frame = document.createElement('iframe');
+        frame.src  = src;
+        frame.width  = 250;
+        frame.height = 180;
+        frame.loading = 'lazy';
+        frame.style.border = '0';
+        frame.style.borderRadius = '8px';
 
-        const img = document.createElement('img');
-        img.src = imgSrc;
-        img.alt = caption || 'Wedding photo';
-        img.style.width = '240px';
-        img.style.borderRadius = '8px';
-        img.loading = 'lazy';
+        const wrap = document.createElement('div');
+        wrap.style.textAlign = 'center';
+        wrap.style.margin = '10px';
 
-        const captionEl = document.createElement('p');
-        captionEl.textContent = caption || '';
-        captionEl.style.fontSize = '0.9rem';
-        captionEl.style.marginTop = '0.5rem';
+        if (caption){
+            const cap = document.createElement('p');
+            cap.textContent = caption;
+            cap.style.fontSize = '0.9rem';
+            cap.style.marginTop = '0.4rem';
+            wrap.appendChild(frame);
+            wrap.appendChild(cap);
+        } else {
+            wrap.appendChild(frame);
+        }
 
-        wrapper.appendChild(img);
-        wrapper.appendChild(captionEl);
-        gallery.appendChild(wrapper);
+        gallery.appendChild(wrap);
     });
 }
 
-// Run when DOM is ready
 document.addEventListener('DOMContentLoaded', renderGallery);
