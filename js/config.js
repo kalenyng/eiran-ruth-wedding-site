@@ -35,7 +35,7 @@ async function renderGallery(){
         frame.height = 180;
         frame.loading = 'lazy';
         frame.style.border = '0';
-        frame.style.borderRadius = '8px';
+        frame.style.borderRadius = '5px';
 
         const wrap = document.createElement('div');
         wrap.style.textAlign = 'center';
