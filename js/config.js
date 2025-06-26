@@ -16,18 +16,14 @@ async function fetchPhotoEntries() {
     return (data.values || []).map(([link, caption]) => ({ link, caption }));
 }
 
-function toImageURL(driveLink) {
-    if (!driveLink) return null;
+function toImageURL(link) {
+    if (!link) return null;
 
-    // 1) Matches: https://drive.google.com/file/d/FILE_ID/view?usp=drive_link
-    let match = driveLink.match(/\/d\/([^/]+)\//);
-    if (match) return `https://drive.google.com/uc?export=view&id=${match[0]}`;
+    const id =
+        link.match(/\/d\/([^/]+)\//)?.[1] ||     // matches /d/FILE_ID/
+        link.match(/[?&]id=([^&]+)/)?.[1];       // matches ?id=FILE_ID
 
-    // 2) Matches: https://drive.google.com/open?id=FILE_ID
-    match = driveLink.match(/[?&]id=([^&]+)/);
-    if (match) return `https://drive.google.com/uc?export=view&id=${match[0]}`;
-
-    return null; // unsupported format
+    return id ? `https://drive.google.com/uc?id=${id}` : null;
 }
 
 
