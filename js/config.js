@@ -16,14 +16,9 @@ async function fetchPhotoEntries() {
     return (data.values || []).map(([link, caption]) => ({ link, caption }));
 }
 
-function toImageURL(link) {
-    if (!link) return null;
-
-    const id =
-        link.match(/\/d\/([^/]+)\//)?.[1] ||     // matches /d/FILE_ID/
-        link.match(/[?&]id=([^&]+)/)?.[1];       // matches ?id=FILE_ID
-
-    return id ? `https://drive.google.com/uc?id=${id}` : null;
+function toImageURL(driveLink) {
+    const idMatch = driveLink?.match(/id=([a-zA-Z0-9_-]+)/);
+    return idMatch ? `https://drive.google.com/uc?id=${idMatch[1]}` : null;
 }
 
 
