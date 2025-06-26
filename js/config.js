@@ -17,9 +17,19 @@ async function fetchPhotoEntries() {
 }
 
 function toImageURL(driveLink) {
-    const match = driveLink?.match(/\/d\/([^/]+)\//);
-    return match ? `https://drive.google.com/uc?export=view&id=${match[1]}` : null;
+    if (!driveLink) return null;
+
+    // 1) Matches: https://drive.google.com/file/d/FILE_ID/view?usp=drive_link
+    let match = driveLink.match(/\/d\/([^/]+)\//);
+    if (match) return `https://drive.google.com/uc?export=view&id=${match[1]}`;
+
+    // 2) Matches: https://drive.google.com/open?id=FILE_ID
+    match = driveLink.match(/[?&]id=([^&]+)/);
+    if (match) return `https://drive.google.com/uc?export=view&id=${match[1]}`;
+
+    return null; // unsupported format
 }
+
 
 async function renderGallery() {
     const gallery = document.getElementById('gallery');
