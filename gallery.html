@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    <title>Wedding Menu</title>
+
+    <!-- CSS -->
+    <link rel="stylesheet" href="css/style.css" />
+
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display&family=Open+Sans&display=swap" rel="stylesheet">
+
+    <!-- Bootstrap CDN -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.7/dist/css/bootstrap.min.css" rel="stylesheet" crossorigin="anonymous" />
+
+    <!-- AOS -->
+    <link href="https://cdn.jsdelivr.net/npm/aos@2.3.4/dist/aos.css" rel="stylesheet" />
+</head>
+
+<body>
+
+<nav>
+    <ul>
+        <li><a href="home.html">Our Story</a></li>
+        <li><a href="venue.html">Venue</a></li>
+        <li><a href="ood.html">Order of the Day</a></li>
+        <li><a href="menu.html">Menu</a></li>
+        <li><a href="gallery.html">Gallery</a></li>
+    </ul>
+</nav>
+
+<header class="hero">
+    <div class="carousel-container">
+        <img src="https://placehold.co/1200x500?text=Photos" class="carousel-img active" alt="Photos" />
+        <div class="hero-content">
+            <h1>Share Your Moments</h1>
+            <p>Upload and view memories from the big day</p>
+        </div>
+    </div>
+</header>
+
+<section class="container text-center py-5" data-aos="fade-up">
+    <h2>Upload Your Wedding Photos</h2>
+    <p class="mb-4">We’d love to see the wedding from your perspective! Click below to upload your pictures:</p>
+    <a href="https://docs.google.com/forms/d/e/1FAIpQLSddQMnF9k0C68K3WO2PV72PtdsYGBHQnAgGGS8t2HaalCBVMQ/viewform" target="_blank" class="btn__primary">Upload Photos</a>
+</section>
+
+<section class="container py-5" id="gallery-section">
+    <h2 class="text-center mb-4">Wedding Gallery</h2>
+    <p class="text-center mb-3">See everyone's beautiful memories and moments.</p>
+    <div id="gallery" class="d-flex flex-wrap gap-4 justify-content-center"></div>
+</section>
+
+
+<script src="https://cdn.jsdelivr.net/npm/aos@2.3.4/dist/aos.js"></script>
+<script src="./js/main.js"></script>
+<script src="./js/config.js"></script>
+</body>
+</html>
