@@ -19,9 +19,8 @@ async function fetchPhotoEntries() {
 function toImageURL(driveLink) {
     const cleanLink = driveLink.split('&')[0]; // strip extra params
     const idMatch = cleanLink.match(/id=([a-zA-Z0-9_-]+)/);
-    return idMatch ? `https://drive.google.com/open?id=${idMatch[1]}` : null;
+    return idMatch ? `https://drive.usercontent.google.com/download?id=${idMatch[1]}` : null;
 }
-
 
 async function renderGallery() {
     const gallery = document.getElementById('gallery');
