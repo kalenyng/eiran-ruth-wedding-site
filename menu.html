@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    <title>Wedding Menu</title>
+
+    <!-- CSS -->
+    <link rel="stylesheet" href="css/style.css" />
+
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display&family=Open+Sans&display=swap" rel="stylesheet">
+
+    <!-- Bootstrap CDN -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.7/dist/css/bootstrap.min.css" rel="stylesheet" crossorigin="anonymous" />
+
+    <!-- AOS -->
+    <link href="https://cdn.jsdelivr.net/npm/aos@2.3.4/dist/aos.css" rel="stylesheet" />
+</head>
+
+<body>
+
+<!-- === NAV === -->
+<nav>
+    <ul>
+        <li><a href="home.html">Our Story</a></li>
+        <li><a href="venue.html">Venue</a></li>
+        <li><a href="ood.html">Order of the Day</a></li>
+        <li><a href="menu.html">Menu</a></li>
+        <li><a href="#donate">Generosity</a></li>
+        <li><a href="gallery.html">Gallery</a></li>
+    </ul>
+</nav>
+
+<!-- ================= HERO IMAGE CAROUSEL ================= -->
+<header class="hero">
+    <div class="carousel-container">
+        <!-- Placeholder slides -->
+        <img src="https://placehold.co/1200x500?text=Hero+1" class="carousel-img active" alt="Hero 1" />
+        <img src="https://placehold.co/1200x500?text=Hero+2" class="carousel-img" alt="Hero 2" />
+        <img src="https://placehold.co/1200x500?text=Hero+3" class="carousel-img" alt="Hero 3" />
+
+        <!-- Carousel navigation arrows -->
+        <div class="carousel-controls">
+            <button onclick="prevSlide()">&#10094;</button>
+            <button onclick="nextSlide()">&#10095;</button>
+        </div>
+
+        <!-- Overlay text -->
+        <div class="hero-content">
+            <h1>Order of the day</h1>
+            <p>Let the celebrations begin!</p>
+        </div>
+    </div>
+</header>
+
+<!-- === MENU SECTIONS === -->
+<section id="menu" class="container py-5" data-aos="fade-up">
+    <h2 class="text-center mb-4">Your Culinary Journey</h2>
+
+    <!-- Starters -->
+    <div class="mb-5">
+        <h3 class="text-center mb-3">Starters</h3>
+        <ul class="list-unstyled text-center">
+            <li class="mb-2"><strong>Tomato & Basil Soup</strong> – with warm sourdough</li>
+            <li class="mb-2"><strong>Goat Cheese Tart</strong> – with caramelized onion & rocket</li>
+            <li class="mb-2"><strong>Smoked Salmon Blini</strong> – with lemon crème fraîche</li>
+        </ul>
+    </div>
+
+    <!-- Mains -->
+    <div class="mb-5">
+        <h3 class="text-center mb-3">Main Courses</h3>
+        <ul class="list-unstyled text-center">
+            <li class="mb-2"><strong>Herb-Crusted Lamb</strong> – with roast vegetables & jus</li>
+            <li class="mb-2"><strong>Pan-Seared Seabass</strong> – with dill mash & white wine sauce</li>
+            <li class="mb-2"><strong>Wild Mushroom Risotto</strong> – finished with truffle oil (V)</li>
+        </ul>
+    </div>
+
+    <!-- Desserts -->
+    <div>
+        <h3 class="text-center mb-3">Desserts</h3>
+        <ul class="list-unstyled text-center">
+            <li class="mb-2"><strong>Lemon Tart</strong> – with raspberry coulis</li>
+            <li class="mb-2"><strong>Chocolate Fondant</strong> – with vanilla bean ice cream</li>
+            <li class="mb-2"><strong>Cheese Board</strong> – with biscuits & fruit chutney</li>
+        </ul>
+    </div>
+</section>
+
+<!-- === SCRIPTS === -->
+<script src="https://cdn.jsdelivr.net/npm/aos@2.3.4/dist/aos.js"></script>
+<script src="./js/main.js"></script>
+
+</body>
+</html>
