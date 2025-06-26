@@ -17,9 +17,9 @@ async function fetchPhotoEntries() {
 }
 
 function toImageURL(driveLink) {
-    const cleanLink = driveLink.split('&')[0]; // strip extra params
-    const idMatch = cleanLink.match(/id=([a-zA-Z0-9_-]+)/);
-    return idMatch ? `https://drive.usercontent.google.com/download?id=${idMatch[1]}` : null;
+    const cleanLink = driveLink.split('&')[0]; // Remove trailing junk
+    const match = cleanLink.match(/id=([a-zA-Z0-9_-]+)/);
+    return match ? `https://drive.google.com/uc?id=${match[1]}` : null;
 }
 
 async function renderGallery() {
